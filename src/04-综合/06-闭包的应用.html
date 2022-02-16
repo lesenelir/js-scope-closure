@@ -11,7 +11,24 @@
       // 1. 函数外部访问私有变量
       // 2. 实现封装
       // 3. 防止污染全局变量
+      function Person() {
+        var uname
+        function setName(uname) {
+          this.uname = uname
+        }
+        function getName() {
+          return this.uname
+        }
+        return {
+          getName: getName,
+          setName: setName,
+        }
+      }
 
+      var person = Person()
+      person.setName('xiaopang')
+      var name = person.getName()
+      console.log(name)
     </script>
 
   </body>
