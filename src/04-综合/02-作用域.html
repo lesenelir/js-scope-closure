@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>作用域</title>
+  </head>
+  <body>
+
+    <script>
+      /**
+       *  函数存在一个隐式属性[[scopes]]，这个属性保存函数执行的上下文（执行环境）
+       *  [[scopes]]属性在函数声明时产生, 在函数被调用时更新
+       *
+       *
+       *  作用域链：
+       *     在访问变量或者函数时, 会在作用域链上依次查找, 最直观的表现是: 内部函数可以使用外部函数声明的变量
+       *
+       *
+       *  内部函数可以使用外部函数的变量
+       *  外部函数不可以使用内部函数的变量
+       */
+      function a() {
+        console.dir(a)
+        function b() {
+          console.dir(b)
+          function c() {
+            console.dir(c)
+          }
+          c()
+        }
+        b()
+      }
+      a()
+
+      // 执行全局预编译
+      // 1. 查找GO对象，先查找有无变量声明（无），再查找有无函数声明（有）
+      // GO: {a: function}
+      // 2. 全局预编译执行完，执行33行，产生a的AO对象
+      // 函数a的scopes：
+      //              0: aAO: {b: function}
+      //              1: GO
+      // 3. 执行函数b，产生b函数的AO对象
+      // 函数b的scopes：
+      //              0: bAO: {c: function}
+      //              1: aAO: {b: function}
+      //              2: GO
+      // 4. 执行函数c，产生c函数的AO对象
+      // 函数c的scopes：
+      //              0: cAO: {}
+      //              0: bAO: {c: function}
+      //              1: aAO: {b: function}
+      //              2: GO
+
+
+    </script>
+
+  </body>
+</html>
