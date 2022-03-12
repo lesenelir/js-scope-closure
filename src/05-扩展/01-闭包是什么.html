@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+  </head>
+  <body>
+    闭包是什么？
+
+    1. 犀牛书： 函数变量可以保存在函数作用域内
+    2. 高级程序设计： 有权访问另一个函数作用域中的变量的函数(函数没导出)
+    3. 你不知道的JS： 函数可以记住并访问所在词法作用域时，就产生了闭包；
+    即使，函数是在当前词法作用域之外执行
+
+    4. MDN：当函数执行，导致某个函数被定义（函数声明 / 函数表达式） 【重要！】
+
+    Note： 闭包和函数的定义有关 / this指向和函数执行方式有关
+
+    <script>
+      function foo() {
+        var n = 0
+
+        function bar() { // bar函数有权访问foo函数作用域中的变量
+          console.log(n)
+        }
+
+        bar()
+      }
+
+      foo()
+
+      function foo1() {
+        let n = 1
+        return function bar1() { // bar函数有权访问foo函数作用域中的变量
+          console.log(n)
+        }
+      }
+
+      foo1()()
+
+
+      // function loo(fn) {
+      //   var n = 0
+      //   fn() // 函数执行，不是函数定义；此时不是闭包
+      // }
+      //
+      // function test() {
+      //   console.log(n)
+      // }
+      // loo(test)
+
+      // 1. 函数的返回值是函数
+      // function loo() {
+      //   var n = 1
+      //   return function () {
+      //     console.log(n)
+      //   }
+      // }
+      // loo()()
+
+      // 2. 返回的变量是函数
+      // function loo() {
+      //   var n = 1
+      //   var x = function () {
+      //     console.log(n)
+      //   }
+      //   return x
+      // }
+      // loo()()
+
+      // 3. 返回函数保存在全局变量
+      var outer
+
+      function loo() {
+        var a = 10
+        outer = function () {
+          console.log(a)
+        }
+      }
+
+      loo() // 函数执行导致函数被定义
+      outer()
+
+      // 4. 函数的参数方式
+      var inner = function (fn) {
+            console.log(fn())
+          }
+      ;(function () {
+        var b = 'local'
+        var n = function () {
+          return b
+        }
+        inner(n)
+      })()
+
+
+      // 循环赋值问题
+      function foo2() {
+        let arr = []
+        for (var i = 0; i < 10; i++) {
+          arr[i] = function () {
+            console.log(i)
+          }
+        }
+        return arr
+      }
+
+      var bar2 = foo2()
+      for (var i = 0; i <10; i++) {
+        bar2[i]()
+      }
+
+    </script>
+
+  </body>
+</html>

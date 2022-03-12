@@ -7,12 +7,16 @@
   <body>
 
     <script>
+      // 闭包设计初衷：函数外部访问函数内部变量的问题
+
+
       // 闭包应用：
       // 1. 函数外部访问私有变量
       // 2. 实现封装
       // 3. 防止污染全局变量
       function Person() {
         var uname
+        // 通过两个接口可以在函数外部访问内部的变量
         function setName(uname) {
           this.uname = uname
         }
@@ -21,11 +25,12 @@
         }
         return {
           getName: getName,
-          setName: setName,
+          setName: setName
         }
       }
 
       var person = Person()
+      console.dir(person)
       person.setName('xiaopang')
       var name = person.getName()
       console.log(name)

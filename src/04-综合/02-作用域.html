@@ -10,6 +10,8 @@
       /**
        *  函数存在一个隐式属性[[scopes]]，这个属性保存函数执行的上下文（执行环境）
        *  [[scopes]]属性在函数声明时产生, 在函数被调用时更新
+       *  [[scopes]] 作用域是一个栈，后面的AO在最上面
+       *  函数被调用时，将该函数的AO对象压入[[scopes]]中
        *
        *
        *  作用域链：
@@ -47,9 +49,9 @@
       // 4. 执行函数c，产生c函数的AO对象
       // 函数c的scopes：
       //              0: cAO: {}
-      //              0: bAO: {c: function}
-      //              1: aAO: {b: function}
-      //              2: GO
+      //              1: bAO: {c: function}
+      //              2: aAO: {b: function}
+      //              3: GO
 
 
     </script>
