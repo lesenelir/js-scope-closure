@@ -12,7 +12,7 @@ A(2)
 
 
 /**
- *  预编译 产生GO对象: {a: undefined, b: undefined, A: function}
+ *  预编译 产生GO对象: {a: undefined, b: undefined, A: function A(a)}
  *
  *  执行第一行，修改GO对象: {a: 0, b: 0, A: function}
  *
@@ -21,13 +21,14 @@ A(2)
  *            此时A1AO对象的[[scopes]]：
  *                      0: A1AO: {a: 1}
  *                      1: GO: {a: 0, b: 0, A: function(b){a+b++}}
+ *  接着执行第7行，打印a++为1，a为2，但是修改了GO中的A的属性值和GO中的a值
+ *  GO: {a: 2, b: 0, A: function(b){a+b++}}
  *
  *
- *  执行第11行，生成第二个A2AO对象：{a: 2} （形参并赋值）
+ *  执行第11行，生成第二个A2AO对象：{b: 2} （形参并赋值）
  *            此时A2AO对象的[[scopes]]：
- *                      0: A2AO: {a: 2}
- *                      1: A1AO: {a: 1}
- *                      2: GO: {a: 0, b: 0, A: function(b){a+b++}}
+ *                      0: A2AO: {b: 2}
+ *                      1: GO: {a: 2, b: 0, A: function(b){a+b++}}
  *      并调用GO中的A方法，b为参数A2AO对象中的
  *
  */

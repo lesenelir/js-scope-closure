@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      let a = 0, b = 0
+
+      function A(a) {
+        A = function (b) { // 函数执行完，被当前上下文以外的东西所占用，形成闭包
+          console.log(a + (b++))
+        }
+        console.log(a++)
+      }
+
+      A(1)
+      A(2)
+    </script>
+  </body>
+</html>
