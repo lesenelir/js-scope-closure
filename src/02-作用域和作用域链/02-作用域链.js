@@ -47,3 +47,5 @@ function show(f) {
 }
 
 show(fn)
+
+// Note： 不能访问show中的x是因为，此时show执行第49行之后，show的AO对象被销毁
