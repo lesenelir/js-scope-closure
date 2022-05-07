@@ -1,9 +1,9 @@
-// 闭包实现累加器
+// 1. 闭包实现累加器
 function add() {
   let num = 1
 
   function fn() {
-    console.log(num++)
+    console.log(++num)
   }
   return fn
 }
@@ -13,6 +13,8 @@ res()
 res()
 res()
 
+
+// 2. 闭包的缓存机制
 // 闭包实现打印学生名单
 function classroom(name) {
   let stuArr = []
