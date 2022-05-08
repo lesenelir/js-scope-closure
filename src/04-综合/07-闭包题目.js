@@ -34,3 +34,15 @@ A(2)
  */
 
 
+let x = 1, y = z = 0
+function add(n) {
+  return n = n + 1
+}
+y = add(x)
+
+function add(n) {   // 相同函数会覆盖原来的函数
+  return n = n + 3
+}
+z = add(x)
+
+console.log(x, y, z) // 1 4 4
